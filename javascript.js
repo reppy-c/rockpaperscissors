@@ -1,5 +1,3 @@
-console.log("hello test?");
-
 const ROCK = 1;
 const PAPER = 2;
 const SCISSORS = 3;
@@ -9,6 +7,10 @@ const COMPUTER = 1;
 
 let playerScore = 0;
 let computerScore = 0;
+
+const resultDisplay = document.querySelector('#resultDisplay');
+const playerScoreDisplay = document.querySelector('#yourScore');
+const computerScoreDisplay = document.querySelector('#cpuScore');
 
 // Randomly return ROCK, PAPER or SCISSORS
 function getComputerChoice() {
@@ -28,10 +30,11 @@ function getPlayerChoice() {
 }
 
 // Play a single round and return either PLAYER, COMPUTER or null for tie
-function playRound(playerChoice, computerChoice) {
+function playRound(e, computerChoice = (Math.random() * (3 - 1) + 1).toPrecision(1)) {
    
     let winner;
     let winningCondition;
+    let playerChoice = this.dataset.choice;
 
     if((playerChoice == 1) && (computerChoice == 3)) {winner = PLAYER; winningCondition = 'Rock beats Scissors';}
     if((playerChoice == 2) && (computerChoice == 1)) {winner = PLAYER; winningCondition = 'Paper beats Rock';}
@@ -48,17 +51,44 @@ function playRound(playerChoice, computerChoice) {
 
     switch(winner) {
         case PLAYER: {
-            console.log("You Win! " + winningCondition); playerScore++; break;
+            resultDisplay.textContent = "You Win! " + winningCondition;
+            playerScore++; 
+            playerScoreDisplay.textContent = playerScore;
+            checkWinner();
+            break;
         }
         case COMPUTER: {
-            console.log("You Lose! " + winningCondition); computerScore++; break;
+            resultDisplay.textContent = "You Lose! " + winningCondition;
+            computerScore++; 
+            computerScoreDisplay.textContent = computerScore;
+            checkWinner();
+            break;
         }
         default: { 
-            console.log("Tie! " + winningCondition); break;
+            resultDisplay.textContent = "Tie! " + winningCondition;
+            break;
         }
     }
 
     return(winner);
+}
+
+
+// Checks for winner, returns true if there is a winner, false if not
+function checkWinner()
+{
+    if(playerScore == 5) resultDisplay.textContent = "You've won 5 rounds! Hurray!";
+    else if(computerScore == 5) resultDisplay.textContent = "Aww. The computer won 5 rounds!";
+
+    if(playerScore == 5 || computerScore == 5) {
+        const gameButtons = document.querySelectorAll('button');
+        gameButtons.forEach(gameButton => {
+            gameButton.disabled = true;        
+        })
+        return(true);
+    }
+
+    return(false);
 }
 
 // Welcome in console and run five rounds
@@ -66,19 +96,12 @@ function game() {
     let playerChoice = 0;
     let computerChoice = 0;
 
-    while(playerScore < 5 && computerScore < 5) {
-        playerChoice = getPlayerChoice();
-        computerChoice = getComputerChoice();
-
-        let winner = playRound(playerChoice, computerChoice);
-    }
-
-    if(playerScore == 5) {
-        console.log(`The winner is... YOU! The final score is ${playerScore} to ${computerScore}.`);
-    }
-    else {
-        console.log(`The winner is... COMPUTER! The final score is ${computerScore} to ${playerScore}.`);
-    }
+    // Add listeners to the buttons
+    const gameButtons = document.querySelectorAll('button');
+ 
+    gameButtons.forEach(gameButton => {
+        gameButton.addEventListener("click", playRound);
+    })
 }
 
 game();

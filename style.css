@@ -1,0 +1,81 @@
+body {
+    background-color: #264653;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 36px;
+    color: #e9c46a
+}
+
+#resultDisplay {
+    height: 140px;
+    width: 610px;
+    background-color: #e9c46a;
+    border: 3px solid #2a9d8f;
+    border-radius: 5px;
+    margin-bottom: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+#centerRow {
+    display:flex;
+}
+
+.score {
+    width: 150px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    color: #ffffff;
+    font-size: 90px;
+}
+
+.score img {
+    height:20px;
+    align-self: center;
+}
+
+
+.gameButtons {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.gameButtons button {
+    width:200px;
+    height:64px;
+    border-radius: 5px;
+    background: #f4a261;
+    border: 2px solid #e76f51;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #000000;
+}
+
+.buttonImg {
+    height: 32px;
+    width: 32px;
+}
+
+[data-choice="1"] .buttonImg 
+{
+    height: 24px;
+    width: 24px;
+    padding-top:8px;
+}
